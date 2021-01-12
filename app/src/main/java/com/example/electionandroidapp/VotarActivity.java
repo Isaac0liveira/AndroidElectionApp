@@ -3,6 +3,7 @@ package com.example.electionandroidapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class VotarActivity extends AppCompatActivity {
 
@@ -38,13 +40,12 @@ public class VotarActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                for(Candidato c : candidatos){
-                    if(Integer.parseInt(String.valueOf(s)) == c.getNumero() ){
-                        candidatoSelecionado = c;
-                        nome.setText(c.getNome());
-                        break;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        procurar(Integer.parseInt(String.valueOf(s)));
                     }
-                }
+                }, 5000);
             }
 
             @Override
@@ -52,5 +53,15 @@ public class VotarActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void procurar(Integer s){
+        for(Candidato c : candidatos){
+            if(s == c.getNumero() ){
+                candidatoSelecionado = c;
+                nome.setText(c.getNome());
+                break;
+            }
+        }
     }
 }
