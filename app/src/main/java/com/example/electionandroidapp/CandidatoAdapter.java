@@ -32,7 +32,7 @@ public class CandidatoAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return candidatos.get(position).getId();
     }
 
     @Override

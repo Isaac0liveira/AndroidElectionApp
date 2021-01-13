@@ -40,4 +40,21 @@ public class CandidatoDAO {
         values.put("votos", 0);
         return banco.insert("candidatos", null, values);
     }
+
+    public void votar(Candidato candidato){
+        ContentValues values = new ContentValues();
+        values.put("votos", candidato.getVotos() + 1);
+        banco.update("candidatos", values, "id = ?", new String[]{String.valueOf(candidato.getId())});
+    }
+
+    public void atualizar(Candidato candidato){
+        ContentValues values = new ContentValues();
+        values.put("nome", candidato.getNome());
+        values.put("numero", candidato.getNumero());
+        banco.update("candidatos", values, "id = ?", new String[]{String.valueOf(candidato.getId())});
+    }
+
+    public void excluir(Candidato candidato){
+        banco.delete("candidatos", "id = ?", new String[]{String.valueOf(candidato.getId())});
+    }
 }
